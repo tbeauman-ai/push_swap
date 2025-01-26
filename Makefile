@@ -3,7 +3,8 @@ FLAGS=-Wall -Wextra -Werror -I includes/
 LIBFT=libft/libft.a
 FT_PRINTF=ft_printf/libftprintf.a
 LIBSFLAGS=-L libft/ -lft -L ft_printf -lftprintf
-SRCSF=main.c error_handling.c
+SRCSF=main.c error_handling.c ops.c ops2.c pile_ops.c debug_tools.c \
+ft_atol.c pile_tools.c sort.c
 OBJSF=$(SRCSF:.c=.o)
 SRCDIR=srcs/
 OBJDIR=objs/
@@ -18,7 +19,7 @@ $(LIBFT):
 $(FT_PRINTF):
 	@make -C ft_printf/
 
-$(NAME): $(OBJDIR) $(OBJS)
+$(NAME): $(LIBFT) $(FT_PRINTF) $(OBJDIR) $(OBJS)
 	@echo "\033[0m\033[1;35m|\033[0m"
 	@mv $(OBJSF) $(OBJDIR)
 	@gcc $(LIBFT) $(FT_PRINTF) $(FLAGS) -o $(NAME) $(OBJS) $(LIBSFLAGS)
