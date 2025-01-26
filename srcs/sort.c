@@ -6,18 +6,18 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 18:55:46 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/26 19:12:19 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:24:01 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int     seek_min_index(t_list *p)
 {
     int     min;
     int     pindex;
     int     ret;
-    int     psize;
 
-    psize = ft_lstsize(p);
     min = *(int*)p->content;
     ret = 0;
     pindex = 0;
@@ -25,7 +25,7 @@ int     seek_min_index(t_list *p)
     {
         if (*(int*)p->content < min)
         {
-            min = p->content;
+            min = *(int*)p->content;
             ret = pindex;
         }
         p = p->next;
@@ -36,13 +36,20 @@ int     seek_min_index(t_list *p)
 
 int     sort(t_env *e)
 {
-    int     i;
     int     i_min;
     
-    i = 0;
-    while (i < 5)
+    while (e->size_a)
     {
-
-        i++;
+        i_min = seek_min_index(e->a);
+        if (i_min > 1 + e->size_a / 2)
+            while (i_min++ < e->size_a)
+                rra(e);
+        else
+            while (i_min-- > 0)
+                ra(e);
+        pb(e);
     }
+    while(e->size_b)
+        pa(e);
+    return (1);
 }

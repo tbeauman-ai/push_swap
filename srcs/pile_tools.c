@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:28:58 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/26 18:54:41 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:22:33 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int     pile_quantile(t_list *p, int iq)
         i++;
         sorted = sorted->next;
     }
-    len = sorted->content;
+    len = *(int*)sorted->content;
     ft_lstclear(&head, &free);
     return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 01:40:30 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/26 18:56:32 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:26:59 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,6 @@ int main(int ac, const char **av)
     check_singleton(&e);
     if (!sort(&e))
         return (0);
-    print_pile(e.a);
+    // print_pile(e.a);
     return (0);
 }
