@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:28:58 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/27 12:15:26 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/27 22:53:37 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ int     is_sorted(t_list *a)
     while (a && a->next)
     {
         if (*(int*)a->content > *(int*)a->next->content)
+            return (0);
+        a = a->next;
+    }
+    return (1);
+}
+
+int     is_reverse_sorted(t_list *a)
+{
+    while (a && a->next)
+    {
+        if (*(int*)a->content < *(int*)a->next->content)
             return (0);
         a = a->next;
     }
@@ -38,38 +49,6 @@ t_list  *pile_dup(t_list *p)
         p = p->next;
     }
     return (ret);
-}
-
-unsigned int     get_max(t_list *p)
-{
-    unsigned int     max;
-
-    if (!p)
-        return (0);
-    max = *(unsigned int*)p->content;
-    while(p)
-    {
-        if (*(unsigned int*)p->content > max)
-            max = *(unsigned int*)p->content;
-        p = p->next;
-    }
-    return (max);
-}
-
-int     get_min(t_list *p)
-{
-    int     min;
-
-    if (!p)
-        return (0);
-    min = *(int*)p->content;
-    while(p)
-    {
-        if (*(int*)p->content < min)
-            min = *(int*)p->content;
-        p = p->next;
-    }
-    return (min);
 }
 
 int ft_swap(void **a, void **b)

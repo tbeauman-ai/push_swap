@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:10:28 by tbeauman          #+#    #+#             */
-/*   Updated: 2024/11/10 12:12:01 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:37:03 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 || !s2)
 	{
 		if (!s1)
-			return ((char *)s2);
+			return (ft_strdup(s2));
 		else
-			return ((char *)s1);
+			return (ft_strdup(s1));
 	}
 	ret = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!ret)

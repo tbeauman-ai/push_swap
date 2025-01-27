@@ -1,0 +1,7 @@
+checker_linux
+complexity
+push_swap_tester
+push_swap_visualizer
+push_swap
+*.o
+imgui.ini

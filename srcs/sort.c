@@ -6,35 +6,14 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 18:55:46 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/26 21:24:01 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/27 21:30:08 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int     seek_min_index(t_list *p)
-{
-    int     min;
-    int     pindex;
-    int     ret;
 
-    min = *(int*)p->content;
-    ret = 0;
-    pindex = 0;
-    while (p)
-    {
-        if (*(int*)p->content < min)
-        {
-            min = *(int*)p->content;
-            ret = pindex;
-        }
-        p = p->next;
-        pindex++;
-    }
-    return (ret);
-}
-
-int     sort(t_env *e)
+void     sort(t_env *e)
 {
     int     i_min;
     
@@ -51,5 +30,4 @@ int     sort(t_env *e)
     }
     while(e->size_b)
         pa(e);
-    return (1);
 }

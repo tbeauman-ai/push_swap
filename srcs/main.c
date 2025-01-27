@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 01:40:30 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/27 12:38:33 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/27 23:22:55 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,24 @@ int tab_length(char **tab)
     return (i);
 }
 
+void    free_tab(char **tab)
+{
+    int     i;
+
+    i = 0;
+    while (tab[i])
+    {
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
+}
+
 int    parse(t_env *e, int ac, const char **av)
 {
     char    **split;
     char    *join;
     int     i;
-    int     *integers;
     t_list  *new_node;
 
     join = ft_strjoin_tab((av + 1), ac - 1, " ");
@@ -37,19 +49,21 @@ int    parse(t_env *e, int ac, const char **av)
     if (!split)
         return (free(join), 0);
     i = tab_length(split);
-    integers = (int*)malloc(sizeof(int) * (i + 1));
-    if (!integers)
-        return (free(join), free(split), 0);
+    e->integers = (int*)malloc(sizeof(int) * (i + 1));
+    if (!e->integers)
+        return (free(join), free_tab(split), 0);
     while (--i >= 0)
     {
-        integers[i] = ft_atoi(split[i]);
-        new_node = ft_lstnew(integers + i);
+        if (!is_int(split[i]))
+            return (free(join), free_tab(split), ft_error("Error\n"), 0);
+        e->integers[i] = ft_atoi(split[i]);
+        new_node = ft_lstnew(e->integers + i);
         if (!new_node)
-            return (ft_lstclear(&e->a, &free), free(join), free(split), 0);
+            return (ft_lstclear(&e->a, &free), free(join), free_tab(split), 0);
         ft_lstadd_front(&e->a, new_node);
         e->size_a++;
     }
-    return(free(join), free(split), 1);
+    return(free(join), free_tab(split), 1);
 }
 
 int     is_int(const char *str)
@@ -83,7 +97,7 @@ void    check_args(int ac, const char **av)
     while (i < ac)
     {
         if (!is_int(av[i]))
-            ft_error("Error\n");
+            ft_error("Errormain.c98\n");
         i++;
     }
 }
@@ -163,30 +177,46 @@ void    apply_plus(t_env *e)
     e->a = head;
 }
 
+void    clean_env(t_env *e)
+{
+    t_list  *tmp;
+
+    while(e->a)
+    {
+        tmp = e->a;
+        e->a = e->a->next;
+        free(tmp);
+    }
+    free(e->integers);
+}
+
 int main(int ac, const char **av)
 {
     t_env   e;
     
     if (ac == 1)
         ft_error("");
-    check_args(ac, av);
     init(&e);
     if (!parse(&e, ac, av))
         return (0);
     check_singleton(&e);
     if (is_sorted(e.a))
         return (0);
-    apply_offset(&e);
+    // apply_offset(&e);
     // if (!sort(&e))
         // return (0);
     // apply_plus(&e);
     // print_pile_unsigned_bits(e.a);
-    radix_sort(&e);
+    if (e.size_a <= 6)
+        little_sort(&e);
+    else
+        radix_sort_opti(&e);
     // print_pile_unsigned_bits(e.a);
-    revert_offset(&e);
-    print_pile_bits(e.a);
-    if (is_sorted(e.a))
-        ft_printf("lets go");
+    // revert_offset(&e);
+    // print_pile(e.a);
+    // if (is_sorted(e.a))
+    //     ft_printf("lets go");
+    clean_env(&e);
     return (0);
 }
 

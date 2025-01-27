@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 01:12:51 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/27 12:47:04 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/27 23:25:22 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@ int     get_bit(int x, int pos)
 int     get_ubit(unsigned int x, int pos)
 {
     return ((x >> pos) & 1);
+}
+
+
+unsigned int     get_umax(t_list *p)
+{
+    unsigned int     max;
+
+    if (!p)
+        return (0);
+    max = *(unsigned int*)p->content;
+    while(p)
+    {
+        if (*(unsigned int*)p->content > max)
+            max = *(unsigned int*)p->content;
+        p = p->next;
+    }
+    return (max);
 }
 
 int     has_one(t_env *e, unsigned int i)
@@ -41,59 +58,150 @@ void    radix_sort(t_env *e)
     unsigned int     max_bits;
     unsigned int     i;
     unsigned int     j;
-    unsigned int     size_a;
+    unsigned int     size;
+    unsigned int value;
+    unsigned int bit_a;
+    unsigned int bit_b;
 
-    max = get_max(e->a);
+    max = get_umax(e->a);
     max_bits = 0;
-    if (max < 0)
-        ft_printf("ntm la pute\n");
     while ((unsigned int)(max >> max_bits) > 0 && max_bits < 32)
     {
-        ft_printf("max:%u max_bits:%u shift: %u\n", max, max_bits, (unsigned int)(max >> max_bits));
         max_bits++;
     }
     i = 0;
-    ft_printf("%d:max_bits\n", max_bits);
-    while (i < max_bits)
+    int prout = 0;
+    while (i <= max_bits)
     {
         j = 0;
-        size_a = e->size_a;
-        if (!has_one(e, i))
+        size = e->size_a - prout;
+        // if (!has_one(e, i))
+        // {
+            // ft_printf("prout\n");
+            //i++;
+            // continue ;
+        // }
+
+
+        while (j < size)
         {
-            i++;
-            continue ;
-        }
-
-
-        while (j < size_a)
-        {
-            unsigned int value = *(unsigned int *)e->a->content;
-            unsigned int bit_a = (value >> i) & 1;
-            unsigned int bit_b = e->b && e->size_b > 0 ? (*(unsigned int*)e->b->content >> i) & 1 : 0;
-
-            if (bit_a == 1 && bit_b == 1)
-                rr(e);
-            else if (bit_a == 1)
+            value = *(unsigned int *)e->a->content;
+            bit_a = (value >> i) & 1;
+            if (bit_a)
                 ra(e);
-            else if (bit_b == 1)
-                rb(e);
             else
                 pb(e);
-            // if (get_ubit(*(unsigned int*)e->a->content, i) == 0)
-            //     pb(e);
-            // else
-            //     ra(e);
             j++;
         }
-        while (e->size_b)
+        j = 0;
+        prout = 0;
+        size = e->size_b;
+        if (is_sorted(e->a) && is_reverse_sorted(e->b) && *(int*)e->a->content > *(int*)e->b->content)
+            break ;
+        while (j < size)
         {
-            // if (e->size_a > 1 && *(unsigned int*)e->a->content > *(unsigned int*)e->b->content)
-            //     rrr(e);
-            // else
+            value = *(unsigned int *)e->b->content;
+            bit_b = (value >> (i + 1)) & 1;
+            if (bit_b)
                 pa(e);
+            else
+            {
+                value = *(unsigned int *)e->a->content;
+                bit_a = (value >> (i + 1)) & 1;
+                // if (bit_a)
+                // {
+                //     rr(e);
+                //     prout += 1;
+                // }
+                // else
+                    rb(e);
+            }
+            j++;
         }
         i++;
     }
-    // while (!is_sorted(e->a))
-    //     ra(e);
+    while (e->size_b)
+        pa(e);
+}
+
+void    radix_sort_opti(t_env *e)
+{
+    unsigned int     max;
+    unsigned int     max_bits;
+    unsigned int     i;
+    unsigned int     j;
+    unsigned int     size;
+    unsigned int value;
+    unsigned int bit_a;
+    unsigned int bit_b;
+    unsigned int     rot_a = 0;
+    unsigned int     rot_b = 0;
+
+    max = get_umax(e->a);
+    max_bits = 0;
+    while ((unsigned int)(max >> max_bits) > 0 && max_bits < 32)
+    {
+        max_bits++;
+    }
+    i = 0;
+    int prout = 0;
+    while (i <= max_bits)
+    {
+        j = 0;
+        size = e->size_a - prout;
+        // if (!has_one(e, i))
+        // {
+            // ft_printf("prout\n");
+            //i++;
+            // continue ;
+        // }
+
+
+        while (j < size)
+        {
+            value = *(unsigned int *)e->a->content;
+            bit_a = (value >> i) & 1;
+            if (bit_a)
+            {
+                ra(e);
+                rot_a++;
+            }
+            else
+                pb(e);
+            j++;
+        }
+        j = 0;
+        prout = 0;
+        size = e->size_b;
+        if (is_sorted(e->a) && is_reverse_sorted(e->b) && *(int*)e->a->content > *(int*)e->b->content)
+            break ;
+        while (j < size)
+        {
+            value = *(unsigned int *)e->b->content;
+            bit_b = (value >> (i + 1)) & 1;
+            if (bit_b)
+            {
+                pa(e);
+                rot_a++;
+            }
+            else
+            {
+                // value = *(unsigned int *)e->a->content;
+                // bit_a = (value >> (i + 1)) & 1;
+                // if (bit_a)
+                // {
+                //     rr(e);
+                //     prout += 1;
+                // }
+                // else
+                rb(e);
+                rot_b++;
+            }
+            j++;
+        }
+        
+        i++;
+    }
+    while (e->size_b)
+        pa(e);
 }

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 21:16:11 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/21 21:27:19 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:38:32 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ char    *ft_strjoin_tab(const char **tab, int size, const char *sep)
         tmp = ft_strjoin(ret, sep);
         if (!tmp)
             return (NULL);
+        if (ret)
+            free(ret);
         ret = ft_strjoin(tmp, tab[i]);
-        // free(tmp);
-        // tmp = NULL;
+        free(tmp);
+        tmp = NULL;
         if (!ret)
             return (NULL);
         i++;
