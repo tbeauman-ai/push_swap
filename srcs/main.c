@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 01:40:30 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/26 21:26:59 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:38:33 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,52 @@ void    check_singleton(t_env *e)
     }
 }
 
+void    apply_offset(t_env *e)
+{
+    int     min;
+    t_list  *head;
+
+    head = e->a;
+    min = get_min(e->a);
+    e->offset = min;
+    if (min >= 0)
+        return ;
+    while(e->a)
+    {
+        *(unsigned int*)e->a->content -= e->offset;
+        e->a = e->a->next;
+    }
+    e->a = head;
+}
+
+void    revert_offset(t_env *e)
+{
+    t_list  *head;
+
+    head = e->a;
+    if (e->offset >= 0)
+        return ;
+    while (e->a)
+    {
+        *(int*)e->a->content += e->offset;
+        e->a = e->a->next;
+    }
+    e->a = head;
+}
+
+void    apply_plus(t_env *e)
+{
+    t_list  *head;
+
+    head = e->a;
+    while(e->a)
+    {
+        *(int*)e->a->content += 500;
+        e->a = e->a->next;
+    }
+    e->a = head;
+}
+
 int main(int ac, const char **av)
 {
     t_env   e;
@@ -128,8 +174,19 @@ int main(int ac, const char **av)
     if (!parse(&e, ac, av))
         return (0);
     check_singleton(&e);
-    if (!sort(&e))
+    if (is_sorted(e.a))
         return (0);
-    // print_pile(e.a);
+    apply_offset(&e);
+    // if (!sort(&e))
+        // return (0);
+    // apply_plus(&e);
+    // print_pile_unsigned_bits(e.a);
+    radix_sort(&e);
+    // print_pile_unsigned_bits(e.a);
+    revert_offset(&e);
+    print_pile_bits(e.a);
+    if (is_sorted(e.a))
+        ft_printf("lets go");
     return (0);
 }
+

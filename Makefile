@@ -4,7 +4,7 @@ LIBFT=libft/libft.a
 FT_PRINTF=ft_printf/libftprintf.a
 LIBSFLAGS=-L libft/ -lft -L ft_printf -lftprintf
 SRCSF=main.c error_handling.c ops.c ops2.c pile_ops.c debug_tools.c \
-ft_atol.c pile_tools.c sort.c
+ft_atol.c pile_tools.c sort.c radix_sort.c
 OBJSF=$(SRCSF:.c=.o)
 SRCDIR=srcs/
 OBJDIR=objs/

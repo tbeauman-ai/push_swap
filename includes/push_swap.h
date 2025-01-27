@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:49:03 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/26 21:22:10 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:18:44 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,13 @@ int     is_sorted(t_list *a);
 t_list  *pile_dup(t_list *p);
 t_list  *bubble_sort(t_list *p);
 void    print_pile(t_list *a);
+void    print_pile_bits(t_list *a);
+void    print_pile_unsigned_bits(t_list *a);
+unsigned int     get_max(t_list *p);
+int     get_min(t_list *p);
 
 int     sort(t_env *e);
+void    radix_sort(t_env *e);
 
 long	ft_atol(const char *str);
 
