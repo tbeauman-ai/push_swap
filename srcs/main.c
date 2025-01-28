@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 01:40:30 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/27 23:22:55 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/28 09:47:08 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,12 +210,12 @@ int main(int ac, const char **av)
     if (e.size_a <= 6)
         little_sort(&e);
     else
-        radix_sort_opti(&e);
+        sort(&e);
     // print_pile_unsigned_bits(e.a);
     // revert_offset(&e);
     // print_pile(e.a);
-    // if (is_sorted(e.a))
-    //     ft_printf("lets go");
+    if (is_sorted(e.a))
+        ft_printf("lets go");
     clean_env(&e);
     return (0);
 }

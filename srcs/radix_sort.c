@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 01:12:51 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/27 23:25:22 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/28 09:22:37 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,6 @@ void    radix_sort_opti(t_env *e)
     unsigned int value;
     unsigned int bit_a;
     unsigned int bit_b;
-    unsigned int     rot_a = 0;
-    unsigned int     rot_b = 0;
 
     max = get_umax(e->a);
     max_bits = 0;
@@ -164,7 +162,6 @@ void    radix_sort_opti(t_env *e)
             if (bit_a)
             {
                 ra(e);
-                rot_a++;
             }
             else
                 pb(e);
@@ -182,7 +179,6 @@ void    radix_sort_opti(t_env *e)
             if (bit_b)
             {
                 pa(e);
-                rot_a++;
             }
             else
             {
@@ -195,7 +191,6 @@ void    radix_sort_opti(t_env *e)
                 // }
                 // else
                 rb(e);
-                rot_b++;
             }
             j++;
         }

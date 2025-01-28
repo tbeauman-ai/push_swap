@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:49:03 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/27 23:23:09 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/28 09:46:20 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void    rrr(t_env *e);
 
 int     is_reverse_sorted(t_list *a);
 int     is_sorted(t_list *a);
+void    small_sort_a(t_env *e);
+void     sort(t_env *e);
 t_list  *pile_dup(t_list *p);
 t_list  *bubble_sort(t_list *p);
 void    print_pile(t_list *a);
