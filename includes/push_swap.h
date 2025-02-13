@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:49:03 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/28 09:46:20 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:16:53 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void    rrb(t_env *e);
 void    rr(t_env *e);
 void    rrr(t_env *e);
 
+void    normalize(t_env *e);
 int     is_reverse_sorted(t_list *a);
 int     is_sorted(t_list *a);
 void    small_sort_a(t_env *e);

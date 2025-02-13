@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 01:40:30 by tbeauman          #+#    #+#             */
-/*   Updated: 2025/01/28 09:47:08 by tbeauman         ###   ########.fr       */
+/*   Updated: 2025/01/29 08:30:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int main(int ac, const char **av)
     check_singleton(&e);
     if (is_sorted(e.a))
         return (0);
+    normalize(&e);
     // apply_offset(&e);
     // if (!sort(&e))
         // return (0);
@@ -210,7 +211,7 @@ int main(int ac, const char **av)
     if (e.size_a <= 6)
         little_sort(&e);
     else
-        sort(&e);
+        radix_sort(&e);
     // print_pile_unsigned_bits(e.a);
     // revert_offset(&e);
     // print_pile(e.a);
